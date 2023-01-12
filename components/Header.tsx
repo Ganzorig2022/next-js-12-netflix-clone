@@ -1,10 +1,12 @@
 import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
 type Props = {};
 
 const Header = (props: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { logout } = useAuth();
 
   //only runs when mouse scroll is moved
   useEffect(() => {
@@ -22,7 +24,6 @@ const Header = (props: Props) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log(isScrolled);
 
   return (
     <header className={`${isScrolled && 'bg-[#141414'}`}>
@@ -51,13 +52,14 @@ const Header = (props: Props) => {
         <MagnifyingGlassIcon className='hidden sm:inline h-6 w-6' />
         <p className='hidden lg:inline'>Kids</p>
         <BellIcon className='h-6 w-6' />
-        <Link href='/account'>
-          <img
-            src='http://rb.gy/g1pwyx'
-            alt=''
-            className='cursor-pointer rounded'
-          />
-        </Link>
+        {/* <Link href='/account'> */}
+        <img
+          src='http://rb.gy/g1pwyx'
+          alt=''
+          onClick={logout}
+          className='cursor-pointer rounded'
+        />
+        {/* </Link> */}
       </div>
     </header>
   );
